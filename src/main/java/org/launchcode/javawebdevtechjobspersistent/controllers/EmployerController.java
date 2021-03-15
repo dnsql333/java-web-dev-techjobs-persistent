@@ -55,7 +55,7 @@ public class EmployerController {
     public String displayViewEmployer(Model model, @PathVariable int employerId) {
 
         //2.4
-//        public Optional<optEmployer> findById(Long id) {t
+//        public Optional<optEmployer> findById(Long id) {
 //            return employerRepository.findById(id);
 //        }
         Optional optEmployer = employerRepository.findById(employerId);
