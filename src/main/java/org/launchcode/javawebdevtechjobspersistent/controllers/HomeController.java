@@ -3,6 +3,7 @@ package org.launchcode.javawebdevtechjobspersistent.controllers;
 import org.launchcode.javawebdevtechjobspersistent.models.Employer;
 import org.launchcode.javawebdevtechjobspersistent.models.Job;
 import org.launchcode.javawebdevtechjobspersistent.models.data.EmployerRepository;
+import org.launchcode.javawebdevtechjobspersistent.models.data.JobRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,6 +22,9 @@ public class HomeController {
     @Autowired
     private EmployerRepository employerRepository;
 
+    @Autowired
+    private JobRepository jobRepository;
+
 
     @RequestMapping("")
     public String index(Model model) {
@@ -33,7 +37,7 @@ public class HomeController {
     @GetMapping("add")
     public String displayAddJobForm(Model model) {
 
-        model.addAttribute("title", "Add Job");
+//        model.addAttribute("title", "Add Job");
         model.addAttribute(new Job());
         model.addAttribute("employers", employerRepository.findAll());
         return "add";
@@ -43,14 +47,16 @@ public class HomeController {
     public String processAddJobForm(@ModelAttribute @Valid Job newJob,
                                        Errors errors, Model model, @RequestParam int employerId, @RequestParam List<Integer> skills) {
 
-
-        model.addAttribute()
         if (errors.hasErrors()) {
-            model.addAttribute("title", "Add Job");
+//            model.addAttribute("title", "Add Job");
             return "add";
+        } else {
+            Employer employer = employerRepository.findById(employerId).orElse(new Employer());
+            newJob.setEmployer(employer);
+            jobRepository.save(newJob);
+            return "redirect:";
         }
 
-        return "redirect:";
     }
 
 //    @PostMapping("add")
@@ -74,3 +80,8 @@ public class HomeController {
 
 
 }
+
+
+// use method from job.java and newjob variable in order to make employer
+//            object part of my new job. new job to the employer that the user selected.
+//            what is a job. field/etc to reflect the new employer
