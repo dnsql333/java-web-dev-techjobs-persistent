@@ -21,7 +21,7 @@ public class EmployerController {
 
 //Check here: 2.3
 
-    @GetMapping("employers")
+    @GetMapping
     public String displayAllEmployers(Model model) {
 
         model.addAttribute("title", "All Employers");

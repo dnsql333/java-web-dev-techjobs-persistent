@@ -2,8 +2,10 @@ package org.launchcode.javawebdevtechjobspersistent.controllers;
 
 import org.launchcode.javawebdevtechjobspersistent.models.Employer;
 import org.launchcode.javawebdevtechjobspersistent.models.Job;
+import org.launchcode.javawebdevtechjobspersistent.models.Skill;
 import org.launchcode.javawebdevtechjobspersistent.models.data.EmployerRepository;
 import org.launchcode.javawebdevtechjobspersistent.models.data.JobRepository;
+import org.launchcode.javawebdevtechjobspersistent.models.data.SkillRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,6 +27,8 @@ public class HomeController {
     @Autowired
     private JobRepository jobRepository;
 
+    @Autowired
+    private SkillRepository skillRepository;
 
     @RequestMapping("")
     public String index(Model model) {
@@ -43,20 +47,52 @@ public class HomeController {
         return "add";
     }
 
+//    @PostMapping("add")
+//    public String processAddJobForm(@ModelAttribute @Valid Job newJob,
+//                                       Errors errors, Model model, @RequestParam int employerId, @RequestParam(required = false) List<Integer> skills) {
+//
+//        if (errors.hasErrors()) {
+//            model.addAttribute("title", "Add Job");
+//            return "add";
+//        } else {
+//            Employer employer = employerRepository.findById(employerId).orElse(new Employer());
+//            newJob.setEmployer(employer);
+//        }
+//        jobRepository.save(newJob);
+//        return "redirect:";
+//    }
+
+
     @PostMapping("add")
     public String processAddJobForm(@ModelAttribute @Valid Job newJob,
-                                       Errors errors, Model model, @RequestParam int employerId, @RequestParam(required = false) List<Integer> skills) {
+                                    Errors errors, Model model, @RequestParam int employerId, @RequestParam List<Integer> skills) {
 
         if (errors.hasErrors()) {
             model.addAttribute("title", "Add Job");
             return "add";
         } else {
-            Employer employer = employerRepository.findById(employerId).orElse(new Employer());
-            newJob.setEmployer(employer);
+            List<Skill> skillObjs = (List<Skill>) skillRepository.findAllById(skills);
+            newJob.setSkills(skillObjs);
         }
         jobRepository.save(newJob);
         return "redirect:";
     }
+
+//
+//    @PostMapping("add")
+//    public String processAddJobForm(@ModelAttribute @Valid Skill newSkill,
+//                                    Errors errors, Model model, @RequestParam List<Integer> skills, @RequestParam int employerId) {
+//
+//        if (errors.hasErrors()) {
+//            model.addAttribute("title", "Add Job");
+//            return "add";
+//        } else {
+//            List<Skill> skillObjs = (List<Skill>) skillRepository.findAllById(skills);
+//            newJob.setSkills(skillObjs);
+//        }
+//        jobRepository.save(newSkill);
+//        return "redirect:";
+//    }
 
 //    @PostMapping("add")
 //    public String processAddJobForm(@ModelAttribute @Valid Job newJob,

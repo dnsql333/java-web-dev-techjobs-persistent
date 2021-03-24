@@ -20,7 +20,7 @@ public class SkillController {
     private SkillRepository skillRepository;
 
 
-    @GetMapping("skills")
+    @GetMapping
     public String displayAllSkills(Model model) {
 
         model.addAttribute("title", "All Skills");
@@ -44,7 +44,6 @@ public class SkillController {
         if (errors.hasErrors()) {
             return "skills/add";
         }
-
         //below line is 2.3
         skillRepository.save(newSkill);
         return "redirect:";
