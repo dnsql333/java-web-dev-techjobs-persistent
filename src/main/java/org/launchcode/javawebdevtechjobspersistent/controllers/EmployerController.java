@@ -21,7 +21,7 @@ public class EmployerController {
 
 //Check here: 2.3
 
-    @GetMapping
+    @GetMapping("")
     public String displayAllEmployers(Model model) {
 
         model.addAttribute("title", "All Employers");
@@ -41,11 +41,9 @@ public class EmployerController {
     @PostMapping("add")
     public String processAddEmployerForm(@ModelAttribute @Valid Employer newEmployer,
                                     Errors errors, Model model) {
-
         if (errors.hasErrors()) {
             return "employers/add";
         }
-
         //below line is 2.3
         employerRepository.save(newEmployer);
         return "redirect:";

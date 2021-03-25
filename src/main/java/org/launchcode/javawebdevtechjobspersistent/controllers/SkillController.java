@@ -1,6 +1,5 @@
 package org.launchcode.javawebdevtechjobspersistent.controllers;
 
-
 import org.launchcode.javawebdevtechjobspersistent.models.Skill;
 import org.launchcode.javawebdevtechjobspersistent.models.data.SkillRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +19,7 @@ public class SkillController {
     private SkillRepository skillRepository;
 
 
-    @GetMapping
+    @GetMapping("")
     public String displayAllSkills(Model model) {
 
         model.addAttribute("title", "All Skills");
@@ -52,7 +51,6 @@ public class SkillController {
     @GetMapping("view/{skillId}")
     public String displayViewSkill(Model model, @PathVariable int skillId) {
 
-        //2.4
         Optional optSkill = skillRepository.findById(skillId);
 
         if (optSkill.isPresent()) {
@@ -63,5 +61,4 @@ public class SkillController {
             return "redirect:../";
         }
     }
-
 }

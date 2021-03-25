@@ -47,25 +47,10 @@ public class HomeController {
         return "add";
     }
 
-//    @PostMapping("add")
-//    public String processAddJobForm(@ModelAttribute @Valid Job newJob,
-//                                       Errors errors, Model model, @RequestParam int employerId, @RequestParam(required = false) List<Integer> skills) {
-//
-//        if (errors.hasErrors()) {
-//            model.addAttribute("title", "Add Job");
-//            return "add";
-//        } else {
-//            Employer employer = employerRepository.findById(employerId).orElse(new Employer());
-//            newJob.setEmployer(employer);
-//        }
-//        jobRepository.save(newJob);
-//        return "redirect:";
-//    }
-
 
     @PostMapping("add")
     public String processAddJobForm(@ModelAttribute @Valid Job newJob,
-                                    Errors errors, Model model, @RequestParam int employerId, @RequestParam List<Integer> skills) {
+                                    Errors errors, Model model, @RequestParam int employerId, @RequestParam(required = false) List<Integer> skills) {
 
         if (errors.hasErrors()) {
             model.addAttribute("title", "Add Job");
@@ -78,33 +63,6 @@ public class HomeController {
         return "redirect:";
     }
 
-//
-//    @PostMapping("add")
-//    public String processAddJobForm(@ModelAttribute @Valid Skill newSkill,
-//                                    Errors errors, Model model, @RequestParam List<Integer> skills, @RequestParam int employerId) {
-//
-//        if (errors.hasErrors()) {
-//            model.addAttribute("title", "Add Job");
-//            return "add";
-//        } else {
-//            List<Skill> skillObjs = (List<Skill>) skillRepository.findAllById(skills);
-//            newJob.setSkills(skillObjs);
-//        }
-//        jobRepository.save(newSkill);
-//        return "redirect:";
-//    }
-
-//    @PostMapping("add")
-//    public String processAddJobForm(@ModelAttribute @Valid Job newJob,
-//                                    Errors errors, Model model, @RequestParam int employerId, @RequestParam List<Integer> skills) {
-//
-//        if (errors.hasErrors()) {
-//            model.addAttribute("title", "Add Job");
-//            return "add";
-//        }
-//
-//        return "redirect:";
-//    }
 
 
     @GetMapping("view/{jobId}")
@@ -116,7 +74,3 @@ public class HomeController {
 
 }
 
-
-// use method from job.java and newjob variable in order to make employer
-//            object part of my new job. new job to the employer that the user selected.
-//            what is a job. field/etc to reflect the new employer

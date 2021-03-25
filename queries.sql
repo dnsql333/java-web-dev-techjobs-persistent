@@ -15,3 +15,6 @@ WHERE location = "St.Louis"
 DROP TABLE job
 
 ## Part 4: Test it with SQL
+SELECT *
+  FROM job
+  ORDER BY skills ASC;
