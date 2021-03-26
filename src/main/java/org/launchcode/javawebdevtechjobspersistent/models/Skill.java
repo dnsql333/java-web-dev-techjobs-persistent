@@ -10,7 +10,7 @@ import java.util.List;
 public class Skill extends AbstractEntity {
 
     @ManyToMany(mappedBy="skills")
-    private final List<Job> job = new ArrayList<>();
+    private List<Job> job = new ArrayList<>();
 
     @NotBlank
     private String description;
